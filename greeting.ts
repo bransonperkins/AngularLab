@@ -52,7 +52,7 @@ class Person {
         }
     }
 
-    // getters and setters (accessors and mutators)
+    // getters
     getFirstName(): string {
         return this.firstName;
     }
