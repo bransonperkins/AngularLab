@@ -19,7 +19,7 @@ class Person {
     private hours: number;
     private certifications: string[]=[];
 
-    constructor(firstName: string, lastName: string, age: number, phoneNumber: string, state: string, zipCode: number, occupation?: string, company?: string, hourlyWage?: number, hours?: number) {
+    constructor(firstName: string, lastName: string, age?: number, phoneNumber?: string, state?: string, zipCode?: number, occupation?: string, company?: string, hourlyWage?: number, hours?: number) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -57,82 +57,41 @@ class Person {
         return this.firstName;
     }
 
-    setFirstName(firstName: string) {
-        this.firstName = firstName;
-    }
-
     getLastName(): string {
         return this.lastName;
-    }
-
-    setLastName(lastName: string) {
-        this.lastName = lastName;
     }
 
     getAge(): number {
         return this.age;
     }
 
-    setAge(age: number) {
-        this.age = age;
-    }
-
     getPhoneNumber(): string {
         return this.phoneNumber;
-    }
-
-    setPhoneNumber(phoneNumber: string) {
-        this.phoneNumber = phoneNumber;
     }
 
     getState(): string {
         return this.state;
     }
 
-    setState(state: string) {
-        this.state = state;
-    }
-
     getZipCode(): number {
         return this.zipCode;
-    }
-
-    setZipCode(zipCode: number) {
-        this.zipCode = zipCode;
     }
 
     getOccupation(): string {
         return this.occupation;
     }
 
-    setOccupation(occupation: string) {
-        this.occupation = occupation;
-    }
-
     getCompany(): string {
         return this.company;
-    }
-
-    setCompany(company: string) {
-        this.company = company;
     }
 
     getHourlyWage(): number {
         return this.hourlyWage;
     }
 
-    setHourlyWage(hourlyWage: number) {
-        this.hourlyWage = hourlyWage;
-    }
-
     getHours(): number {
         return this.hours;
     }
-
-    setHours(hours: number) {
-        this.hours = hours;
-    }
-
     
     // Method that returns full name of person
     getFullName(): string {
@@ -159,16 +118,18 @@ class Person {
         return "Weekly wage is $" + this.hours * this.getHourlyWage() + ".";
     }
 
-    addCerts(...certifications: string[]){
+    addCerts(...certifications: string[]) {
         this.certifications.push(...certifications);
-        for(var i = 0; i<certifications.length, i++;){
-            console.log(certifications[i]);
-            //concat this**
-        }
-        return "Certifications: " + this.certifications.join(", ");
+        for(let cert in certifications) {
+            // use loop to print the array contents
+            console.log(certifications[cert]);
         }
 
+        return "Certifications: " + this.certifications.join(", ");
+    }
+
 }
+
 
 let person1 = new Person("Branson", "Perkins", 26, "704-305-0653", "NC", 28269, "Software Developer", "Ally", 15, 40);
 
@@ -184,3 +145,81 @@ document.getElementById("pay1").innerHTML = person1.weeklyWage();
 document.getElementById("pay2").innerHTML = person2.weeklyWage(0);
 
 document.getElementById("certs").innerHTML = person1.addCerts("Java", "HTML", "CSS", "SQL");
+
+interface PersonOptions {
+    firstName: string;
+    lastName: string;
+    age?: number;
+    phoneNumber?: string;
+    state?: string;
+    zipCode?: number;
+    occupation?: string;
+    company?: string;
+    hourlyWage?: number;
+    hours?: number;
+    certifications?: string[];
+}
+
+function createPerson(option: PersonOptions): {firstName: string, lastName: string, age?: number, phoneNumber?: string, state?: string, zipCode?: number, occupation?: string, company?: string, hourlyWage?: number, hours?: number} {
+    let newPerson = {firstName: "Jim", lastName: "Bob", age: null, phoneNumber: null, state: null, zipCode: null, 
+    occupation: null, company: null, hourlyWage: null, hours: null};
+    
+    newPerson.firstName = option.firstName;
+    newPerson.lastName = option.lastName;
+
+        if(option.age) {
+            newPerson.age = option.age;
+        }
+        if(option.phoneNumber){
+            newPerson.phoneNumber = option.phoneNumber;
+        }
+        if(option.state){
+            newPerson.state = option.state;
+        }
+        if(option.zipCode){
+            newPerson.zipCode = option.zipCode;
+        }
+        if(option.occupation){
+            newPerson.occupation = option.occupation;
+        }
+        if(option.hourlyWage){
+            newPerson.hourlyWage = option.hourlyWage;
+        }
+        if(option.hours){
+            newPerson.hours = option.hours;
+        }
+
+    return newPerson;
+}
+
+function printPerson(person): string {
+    let personString = person.firstName + " " + person.lastName;
+    if (person.age != null) {
+        personString = personString + ", Age: " + person.age;
+    }
+    if (person.phoneNumber != null) {
+        personString = personString + ", Phone Number: " + person.phoneNumber;
+    }
+    if (person.state != null) {
+        personString = personString + ", State: " + person.state;
+    }
+    if (person.zipCode != null) {
+        personString = personString + ", Zip Code: " + person.zipCode;
+    }
+    if (person.occupation != null) {
+        personString = personString + ", Occupation: " + person.occupation;
+    }
+    if (person.hourlyWage != null) {
+        personString = personString + ", Hourly Wage: " + person.hourlyWage;
+    }
+    if (person.hours != null) {
+        personString = personString + ", Hours: " + person.hours;
+    }
+
+    return personString;
+}
+
+let person4 = createPerson({firstName: "Billy", lastName: "Goat", age: 69});
+console.log(person4);
+
+document.getElementById("name-only").innerHTML = printPerson(person4);
