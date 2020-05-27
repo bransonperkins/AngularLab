@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../models/person';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
+  private changeName = '';
   personArr: Person[] = [
     new Person('Branson', 'Perkins', 26),
     new Person('Caleb', 'Perkins', 22),
@@ -14,14 +16,9 @@ export class PersonService {
 
   constructor() { }
 
-  async delay(ms: number) {
-    await new Promise(resolve => setTimeout(() => resolve(), ms));
-  }
-
-  getPerson(): Person[] {
-    return this.personArr.filter((person) => {
-      this.delay(4000);
-      return ('Name: ' + person.getFullName() + ', Age: ' + person.getAge());
-    });
+  getPerson(): Observable<Person[]> {
+     return of(this.personArr.filter((person) => {
+       return ('Name: ' + person.getFullName() + ', Age: ' + person.getAge());
+     }));
   }
 }
