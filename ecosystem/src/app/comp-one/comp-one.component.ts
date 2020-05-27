@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonService } from '../services/person.service';
+import { Person } from '../models/person';
 
 @Component({
   selector: 'app-comp-one',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comp-one.component.css']
 })
 export class CompOneComponent implements OnInit {
+  persons: Person[];
 
-  constructor() { }
+  constructor(personService: PersonService) {
+    this.persons = personService.getPerson();
+  }
 
   ngOnInit(): void {
+    this.persons.join(', ');
   }
 
 }
