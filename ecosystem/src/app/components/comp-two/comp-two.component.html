@@ -1,7 +1,13 @@
 <h3>Component Two!</h3>
 
-<ul *ngFor="let people of people">
-    <li>First Name: {{ people.firstName }}</li>
-    <li>Last Name: {{ people.lastName }}</li>
-    <li>Age: {{ people.age }}</li>
-</ul>
+<button (click)="toggle()" id="bt">
+    {{buttonName}}
+</button>
+
+<ng-container *ngIf="show">
+    <ul *ngFor="let peeps of people">
+        <li>First Name: {{ peeps.firstName }}</li>
+        <li>Last Name: {{ peeps.lastName }}</li>
+        <li>Age: {{ peeps.age }}</li>
+    </ul>
+</ng-container>
