@@ -5,13 +5,13 @@ import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class PersonService {
-  private changeName = '';
   personArr: Person[] = [
     new Person('Branson', 'Perkins', 26),
     new Person('Caleb', 'Perkins', 22),
-    new Person('Kenny', 'Perkins', 22),
-    new Person('Jennifer', 'Perkins', 22)
+    new Person('Kenny', 'Perkins', 49),
+    new Person('Jennifer', 'Perkins', 48)
   ];
 
   constructor() { }
